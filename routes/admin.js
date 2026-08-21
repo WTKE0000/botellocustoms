@@ -75,7 +75,7 @@ router.post('/settings', upload.fields([{ name: 'familyPhoto', maxCount: 1 }, { 
     const b = req.body;
     const patch = {
       businessName: b.businessName, locationLine: b.locationLine, address: b.address,
-      email: b.email, snapchatHandle: b.snapchatHandle, heroEyebrow: b.heroEyebrow,
+      email: b.email, snapchatHandle: b.snapchatHandle, snapchatUrl: b.snapchatUrl, heroEyebrow: b.heroEyebrow,
       heroHeadlineTop: b.heroHeadlineTop, heroHeadlineEm: b.heroHeadlineEm, heroSubhead: b.heroSubhead,
       legacyQuote: b.legacyQuote, legacyText: b.legacyText, storyIntroTitle: b.storyIntroTitle,
       storyIntroText: b.storyIntroText, storyOutroText: b.storyOutroText

@@ -77,9 +77,12 @@
         <button class="plus" aria-label="Add a ticket">+</button>
         <span style="margin-left:auto" class="ticket-total">$<%= raffle.ticketPrice %></span>
       </div>
-      <a href="https://www.snapchat.com/add/<%= settings.snapchatHandle %>" target="_blank" rel="noopener"
+<%
+  const snapUrl = settings.snapchatUrl || ('https://www.snapchat.com/add/' + settings.snapchatHandle);
+%>
+      <a href="<%= snapUrl %>" target="_blank" rel="noopener"
          class="btn btn-brass btn-block raffle-pay-btn"
-         data-snapchat-url="https://www.snapchat.com/add/<%= settings.snapchatHandle %>">
+         data-snapchat-url="<%= snapUrl %>">
         Step 1 — Pay via Snapchat →
       </a>
       <p class="pay-redirect-note" style="display:none;margin-top:1rem;font-size:.82rem;color:var(--brass-bright)"></p>

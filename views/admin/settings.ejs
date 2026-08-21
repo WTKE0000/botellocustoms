@@ -28,7 +28,12 @@
     <div class="form-group">
       <label>Snapchat Handle (no @)</label>
       <input type="text" name="snapchatHandle" value="<%= settings.snapchatHandle %>" required>
-      <p class="form-hint">Used on the Raffle page's "Pay via Snapchat" button.</p>
+      <p class="form-hint">Shown as text (e.g. "@handle") — not what the buttons link to. Used as a fallback if the link below is empty.</p>
+    </div>
+    <div class="form-group">
+      <label>Snapchat Link (full URL)</label>
+      <input type="text" name="snapchatUrl" value="<%= settings.snapchatUrl || '' %>" placeholder="https://www.snapchat.com/add/your-handle">
+      <p class="form-hint">This is what "Pay via Snapchat" and "Reserve" actually open. Paste your full share link here (including any ?share_id=... if Snapchat gave you one) — it's used exactly as pasted.</p>
     </div>
   </div>
 

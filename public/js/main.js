@@ -167,6 +167,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     } // end if(form)
   }
+
+  // ===== Firearm "Reserve" -> copy message + open Snapchat =====
+  document.querySelectorAll('.reserve-btn').forEach(btn => {
+    const originalLabel = btn.textContent;
+    btn.addEventListener('click', async () => {
+      const item = btn.dataset.item || 'this item';
+      const price = btn.dataset.price || '';
+      const url = window.SNAPCHAT_URL || (window.SNAPCHAT_HANDLE ? `https://www.snapchat.com/add/${window.SNAPCHAT_HANDLE}` : '');
+      const message = `Hi! I'm interested in reserving the ${item}${price ? ' (' + price + ')' : ''}. Is it still available?`;
+
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(message);
+        copied = true;
+      } catch (err) {
+        copied = false;
+      }
+
+      btn.textContent = copied ? 'Copied! Opening Snapchat…' : 'Opening Snapchat…';
+      setTimeout(() => { btn.textContent = originalLabel; }, 2500);
+
+      if (url) {
+        window.open(url, '_blank', 'noopener');
+      }
+    });
+  });
 });
 
 function buildWheel(container, segments) {
