@@ -19,15 +19,20 @@
         <a href="/accessories">Accessories</a>
         <a href="/raffle">Raffle</a>
       </div>
+<%
+  const footerSnapUrl = settings.snapchatUrl || ('https://www.snapchat.com/add/' + settings.snapchatHandle);
+%>
       <div>
         <h4>Business</h4>
         <a href="/about">Our Story</a>
-        <a href="mailto:<%= settings.email %>">Contact</a>
+        <a href="mailto:<%= settings.email %>">Email Us</a>
+        <a href="<%= footerSnapUrl %>" target="_blank" rel="noopener">Snapchat: @<%= settings.snapchatHandle %></a>
       </div>
       <div>
         <h4>Visit</h4>
         <p><%= settings.address %></p>
         <p><%= settings.email %></p>
+        <p>Snapchat: @<%= settings.snapchatHandle %></p>
       </div>
     </div>
     <div class="footer-bottom">

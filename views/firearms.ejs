@@ -37,7 +37,7 @@
             <p class="card-desc"><%= item.description %></p>
             <div class="card-foot">
               <span class="card-price"><%= item.price %></span>
-              <a href="#reserve" class="btn btn-outline" style="padding:8px 16px;font-size:.7rem">Reserve</a>
+              <button type="button" class="btn btn-outline reserve-btn" style="padding:8px 16px;font-size:.7rem" data-item="<%= item.name %>" data-price="<%= item.price %>">Reserve</button>
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@
     </div>
 
     <div class="compliance-box" id="reserve" style="margin-top:3rem">
-      <strong>How reservations work:</strong> Tapping "Reserve" holds the item and sends us your contact info by email. No firearm is shipped or handed over through the website — every sale is completed in person at our shop with a background check through our FFL, exactly like any other licensed dealer. We'll follow up to schedule your visit.
+      <strong>How reservations work:</strong> Tapping "Reserve" copies a ready-made message with the item's name and price, then opens our Snapchat so you can paste and send it. No firearm is shipped or handed over through the website — every sale is completed in person at our shop with a background check through our FFL, exactly like any other licensed dealer.
     </div>
 
   </div>
