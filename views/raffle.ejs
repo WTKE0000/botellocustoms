@@ -17,7 +17,11 @@
 
 <section class="section">
   <div class="container grid-2">
-    <%- include('partials/media', { image: raffle.prizeImage, icon: '🏆', label: 'Raffle Prize Firearm — 1st Place' }) %>
+    <% if (raffle.prizeVideo) { %>
+      <video src="<%= raffle.prizeVideo %>" controls playsinline <%= raffle.prizeImage ? 'poster="' + raffle.prizeImage + '"' : '' %> style="width:100%;border-radius:var(--radius);border:1px solid var(--line-light);background:#000"></video>
+    <% } else { %>
+      <%- include('partials/media', { image: raffle.prizeImage, icon: '🏆', label: 'Raffle Prize Firearm — 1st Place' }) %>
+    <% } %>
     <div>
       <span class="eyebrow">Prizes</span>
       <h2>What you could win.</h2>
@@ -103,20 +107,12 @@
         <div id="raffle-wheel-container" aria-hidden="true"></div>
       </div>
 
-      <% if (typeof currentUser !== 'undefined' && currentUser) { %>
-        <form id="redeem-form" style="max-width:340px;margin:1.6rem auto 0;display:flex;gap:.6rem">
-          <input type="text" id="redeem-code-input" placeholder="Enter your code" autocomplete="off"
-            style="flex:1;background:var(--paper-card);border:1px solid var(--line-light);color:var(--ink);padding:12px 14px;border-radius:var(--radius);font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase">
-          <button type="submit" class="btn btn-brass" id="redeem-submit-btn">Spin</button>
-        </form>
-        <p id="redeem-message" style="margin-top:1rem;font-size:.9rem;min-height:1.4em"></p>
-      <% } else { %>
-        <div style="max-width:340px;margin:1.6rem auto 0">
-          <p style="color:var(--ink-dim);margin-bottom:1rem">You'll need an account to redeem a code — it keeps your ticket number tied to you.</p>
-          <a href="/login?redirect=%2Fraffle" class="btn btn-brass btn-block">Log In</a>
-          <a href="/signup?redirect=%2Fraffle" class="btn btn-outline btn-block" style="margin-top:.6rem">Create an Account</a>
-        </div>
-      <% } %>
+      <form id="redeem-form" style="max-width:340px;margin:1.6rem auto 0;display:flex;gap:.6rem">
+        <input type="text" id="redeem-code-input" placeholder="Enter your code" autocomplete="off"
+          style="flex:1;background:var(--paper-card);border:1px solid var(--line-light);color:var(--ink);padding:12px 14px;border-radius:var(--radius);font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase">
+        <button type="submit" class="btn btn-brass" id="redeem-submit-btn">Spin</button>
+      </form>
+      <p id="redeem-message" style="margin-top:1rem;font-size:.9rem;min-height:1.4em"></p>
     </div>
   </div>
 </section>

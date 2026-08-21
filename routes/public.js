@@ -139,11 +139,12 @@ router.get('/account', requireCustomer, async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
-// ============ RAFFLE REDEMPTION (must be logged in) ============
-router.post('/raffle/redeem', express.json(), requireCustomer, async (req, res, next) => {
+// ============ RAFFLE REDEMPTION (open to anyone, no account required) ============
+router.post('/raffle/redeem', express.json(), async (req, res, next) => {
   try {
     const code = (req.body && req.body.code) || '';
-    const result = await db.redeemRaffleCode(code, req.currentUser.id);
+    const userId = req.currentUser ? req.currentUser.id : null;
+    const result = await db.redeemRaffleCode(code, userId);
     res.json(result);
   } catch (err) { next(err); }
 });
