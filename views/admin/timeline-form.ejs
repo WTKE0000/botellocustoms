@@ -1,0 +1,24 @@
+<%- include('partials/shell-open', { pageTitle: item ? 'Edit Timeline Entry' : 'Add Timeline Entry', active: 'timeline', flash: flash }) %>
+
+<div class="admin-header"><h1><%= item ? 'Edit' : 'Add' %> Timeline Entry</h1></div>
+
+<form action="<%= item ? '/admin/timeline/' + item.id : '/admin/timeline' %>" method="POST">
+  <div class="admin-card">
+    <div class="form-group">
+      <label>Label (e.g. GEN 1, TODAY)</label>
+      <input type="text" name="label" value="<%= item ? item.label : '' %>" required>
+    </div>
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" name="title" value="<%= item ? item.title : '' %>" required>
+    </div>
+    <div class="form-group">
+      <label>Text</label>
+      <textarea name="text" required><%= item ? item.text : '' %></textarea>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-brass">Save Entry</button>
+  <a href="/admin/timeline" class="btn btn-outline">Cancel</a>
+</form>
+
+<%- include('partials/shell-close') %>

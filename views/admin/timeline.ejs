@@ -1,0 +1,32 @@
+<%- include('partials/shell-open', { pageTitle: 'Family Timeline', active: 'timeline', flash: flash }) %>
+
+<div class="admin-header">
+  <h1>Family Timeline</h1>
+  <a href="/admin/timeline/new" class="btn btn-brass btn-sm">+ Add Entry</a>
+</div>
+
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Label</th><th>Title</th><th>Text</th><th></th></tr></thead>
+    <tbody>
+      <% timeline.forEach(function(item) { %>
+        <tr>
+          <td><%= item.label %></td>
+          <td><%= item.title %></td>
+          <td style="max-width:320px"><%= item.text.length > 90 ? item.text.slice(0,90) + '…' : item.text %></td>
+          <td class="actions">
+            <a href="/admin/timeline/<%= item.id %>/edit" class="btn btn-outline btn-sm">Edit</a>
+            <form action="/admin/timeline/<%= item.id %>/delete" method="POST" style="display:inline" onsubmit="return confirm('Delete this timeline entry?')">
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+      <% if (timeline.length === 0) { %>
+        <tr><td colspan="4" style="color:var(--parchment-dim)">No entries yet.</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/shell-close') %>

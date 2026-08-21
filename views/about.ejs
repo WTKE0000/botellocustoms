@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/nav', { active: 'about' }) %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / Our Story</div>
+    <h1>Our Story</h1>
+    <p>A grandfather's bench, a family name, and two cousins carrying it forward.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container grid-2">
+    <%- include('partials/media', { image: settings.familyPhoto, icon: '👨‍👩‍👧‍👦', label: 'the whole family, or grandad\'s original bench' }) %>
+    <div>
+      <span class="eyebrow">How it started</span>
+      <h2><%= settings.storyIntroTitle %></h2>
+      <p><%= settings.storyIntroText %></p>
+      <p class="legacy-quote">"<%= settings.legacyQuote %>"</p>
+      <p><%= settings.storyOutroText %></p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">The Timeline</span>
+      <h2>Three generations, one mark.</h2>
+    </div>
+    <div class="timeline">
+      <% timeline.forEach(function(item) { %>
+        <div class="timeline-item">
+          <span class="timeline-year"><%= item.label %></span>
+          <h3><%= item.title %></h3>
+          <p><%= item.text %></p>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="raffle-banner">
+      <div>
+        <h2 style="margin-bottom:.2em">Want a piece with your own story?</h2>
+        <p style="margin:0;color:var(--parchment-dim)">Let's talk about a custom commission.</p>
+      </div>
+      <a href="mailto:<%= settings.email %>" class="btn btn-brass">Email the Shop</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= pageTitle %> · Admin | Cesar Botello Customs</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand">
+      <div class="makers-mark" style="width:36px;height:36px;display:inline-block;vertical-align:middle;margin-right:8px">
+        <svg viewBox="0 0 100 100" width="36" height="36">
+          <circle class="ring" cx="50" cy="50" r="46"/>
+          <text x="50" y="47" font-size="26" text-anchor="middle" font-weight="700">CB</text>
+        </svg>
+      </div>
+      <span>Admin</span>
+    </div>
+    <nav class="admin-nav">
+      <a href="/admin" class="<%= active === 'dashboard' ? 'active' : '' %>">Dashboard</a>
+      <div class="divider-label">Site Content</div>
+      <a href="/admin/settings" class="<%= active === 'settings' ? 'active' : '' %>">Site Settings</a>
+      <a href="/admin/timeline" class="<%= active === 'timeline' ? 'active' : '' %>">Family Timeline</a>
+      <div class="divider-label">Inventory</div>
+      <a href="/admin/firearms" class="<%= active === 'firearms' ? 'active' : '' %>">Firearms</a>
+      <a href="/admin/custom-work" class="<%= active === 'custom-work' ? 'active' : '' %>">Custom Work</a>
+      <a href="/admin/accessories" class="<%= active === 'accessories' ? 'active' : '' %>">Accessories</a>
+      <div class="divider-label">Raffle</div>
+      <a href="/admin/raffle" class="<%= active === 'raffle' ? 'active' : '' %>">Raffle Settings</a>
+      <a href="/admin/raffle-codes" class="<%= active === 'raffle-codes' ? 'active' : '' %>">Raffle Codes</a>
+      <div class="divider-label">Account</div>
+      <a href="/admin/account" class="<%= active === 'account' ? 'active' : '' %>">Change Password</a>
+      <a href="/" target="_blank">View Live Site ↗</a>
+      <form action="/admin/logout" method="POST" style="margin-top:.6rem">
+        <button type="submit" class="admin-nav-logout" style="background:none;border:none;color:var(--parchment-dim);font-size:.88rem;padding:10px 12px;cursor:pointer;text-align:left;width:100%">Log Out</button>
+      </form>
+    </nav>
+  </aside>
+  <main class="admin-main">
+    <% if (flash) { %>
+      <div class="admin-flash <%= flash.type === 'error' ? 'error' : '' %>"><%= flash.message %></div>
+    <% } %>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/nav', { active: '' }) %>
+
+<section class="section" style="min-height:60vh;display:flex;align-items:center">
+  <div class="container" style="max-width:420px">
+    <span class="eyebrow">Welcome Back</span>
+    <h1 style="margin-bottom:1.4rem">Log In</h1>
+
+    <% if (flash) { %>
+      <div class="admin-flash <%= flash.type === 'error' ? 'error' : '' %>"><%= flash.message %></div>
+    <% } %>
+
+    <form action="/login" method="POST">
+      <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-brass btn-block">Log In</button>
+    </form>
+    <p style="margin-top:1.4rem;font-size:.9rem;color:var(--ink-dim)">Don't have an account? <a href="/signup?redirect=<%= encodeURIComponent(redirectTo) %>" style="color:var(--brass)">Sign up</a></p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+</body>
+</html>

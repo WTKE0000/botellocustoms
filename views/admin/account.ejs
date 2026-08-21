@@ -1,0 +1,26 @@
+<%- include('partials/shell-open', { pageTitle: 'Account', active: 'account', flash: flash }) %>
+
+<div class="admin-header"><h1>Account</h1></div>
+
+<div class="admin-card" style="max-width:480px">
+  <h3 style="margin-top:0">Signed in as</h3>
+  <p style="font-family:var(--font-mono);color:var(--brass-bright)"><%= admin.email %></p>
+
+  <h3>Change Password</h3>
+  <p class="form-hint" style="margin-top:-.6rem;margin-bottom:1rem">Managed securely through Supabase Auth — this updates your login for this admin account.</p>
+  <form action="/admin/account" method="POST">
+    <div class="form-group">
+      <label>New Password</label>
+      <input type="password" name="newPassword" minlength="6" required>
+    </div>
+    <button type="submit" class="btn btn-brass">Update Password</button>
+  </form>
+</div>
+
+<div class="admin-card" style="max-width:480px">
+  <h3 style="margin-top:0">Add Another Admin</h3>
+  <p class="form-hint">To give your cousin admin access: have them sign up as a customer at <code>/signup</code> on the live site with their own email, then run this in your Supabase SQL Editor:</p>
+  <pre style="background:var(--gunmetal-950);padding:12px;border-radius:4px;font-size:.82rem;overflow-x:auto">update public.profiles set is_admin = true where email = 'their-email@example.com';</pre>
+</div>
+
+<%- include('partials/shell-close') %>

@@ -1,0 +1,40 @@
+<%- include('partials/shell-open', { pageTitle: 'Firearms', active: 'firearms', flash: flash }) %>
+
+<div class="admin-header">
+  <h1>Firearms</h1>
+  <a href="/admin/firearms/new" class="btn btn-brass btn-sm">+ Add Firearm</a>
+</div>
+
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Photo</th><th>Name</th><th>Brand</th><th>Price</th><th>Engraved</th><th></th></tr></thead>
+    <tbody>
+      <% firearms.forEach(function(item) { %>
+        <tr>
+          <td>
+            <% if (item.image) { %>
+              <img src="<%= item.image %>" class="admin-thumb">
+            <% } else { %>
+              <div class="admin-thumb-empty">—</div>
+            <% } %>
+          </td>
+          <td><%= item.name %></td>
+          <td style="text-transform:capitalize"><%= item.brand %></td>
+          <td><%= item.price %></td>
+          <td><%= item.engraved ? 'Yes' : 'No' %></td>
+          <td class="actions">
+            <a href="/admin/firearms/<%= item.id %>/edit" class="btn btn-outline btn-sm">Edit</a>
+            <form action="/admin/firearms/<%= item.id %>/delete" method="POST" style="display:inline" onsubmit="return confirm('Delete this listing?')">
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+      <% if (firearms.length === 0) { %>
+        <tr><td colspan="6" style="color:var(--parchment-dim)">No firearms listed yet.</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/shell-close') %>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/nav', { active: 'custom-work' }) %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / Custom Work</div>
+    <h1>Custom Work</h1>
+    <p>Hand engraving, laser art, and precision metalwork — each piece built to tell a story, not just carry a caliber. Below is a sample of past commissions.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid-3">
+      <% customWork.forEach(function(item) { %>
+        <div class="card">
+          <%- include('partials/media', { image: item.image, icon: '✒️', label: item.title }) %>
+          <div class="card-body">
+            <span class="card-tag"><%= item.tag %></span>
+            <h3 class="card-title"><%= item.title %></h3>
+            <p class="card-desc"><%= item.description %></p>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <div class="divider" style="margin:4rem auto"></div>
+
+    <div class="grid-2">
+      <div>
+        <span class="eyebrow">Commission a Piece</span>
+        <h2>Have something engraved.</h2>
+        <p>Bring us your own firearm, or start with one of ours. We'll talk through the design, the finish, and the story you want it to carry — then put it on paper before any metal is cut.</p>
+        <a href="mailto:<%= settings.email %>?subject=Custom%20Engraving%20Commission" class="btn btn-brass">Start a Commission — Email Us</a>
+      </div>
+      <%- include('partials/media', { image: settings.workshopPhoto, icon: '🛠', label: 'Workshop / Bench Shot' }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+</body>
+</html>

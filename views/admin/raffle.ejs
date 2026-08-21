@@ -1,0 +1,65 @@
+<%- include('partials/shell-open', { pageTitle: 'Raffle Settings', active: 'raffle', flash: flash }) %>
+
+<div class="admin-header"><h1>Raffle Settings</h1></div>
+
+<form action="/admin/raffle" method="POST" enctype="multipart/form-data">
+  <div class="admin-card">
+    <h3 style="margin-top:0">Ticket Structure</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Ticket Price ($)</label>
+        <input type="number" name="ticketPrice" value="<%= raffle.ticketPrice %>" min="1" required>
+      </div>
+      <div class="form-group">
+        <label>Total Tickets Available</label>
+        <input type="number" name="totalTickets" value="<%= raffle.totalTickets %>" min="1" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Max Tickets Per Person</label>
+        <input type="number" name="maxPerPerson" value="<%= raffle.maxPerPerson %>" min="1" required>
+      </div>
+      <div class="form-group">
+        <label>Raffle Duration (days)</label>
+        <input type="number" name="durationDays" value="<%= raffle.durationDays %>" min="1" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3 style="margin-top:0">Prize Photo</h3>
+    <% if (raffle.prizeImage) { %>
+      <img src="<%= raffle.prizeImage %>" class="admin-thumb" style="width:100px;height:100px;margin-bottom:.6rem">
+    <% } %>
+    <input type="file" name="prizeImage" accept="image/*">
+  </div>
+
+  <div class="admin-card">
+    <h3 style="margin-top:0">Prizes</h3>
+    <p class="form-hint" style="margin-top:-.6rem;margin-bottom:1rem">One prize per line, formatted as <code>Place: description</code>. Example: <code>1st: Custom hand-engraved &amp; plated firearm — retail value $4,500</code></p>
+    <div class="form-group">
+      <textarea name="prizesRaw" style="min-height:120px"><%= raffle.prizes.map(p => p.place + ': ' + p.description).join('\n') %></textarea>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3 style="margin-top:0">How It Works</h3>
+    <p class="form-hint" style="margin-top:-.6rem;margin-bottom:1rem">One step per line.</p>
+    <div class="form-group">
+      <textarea name="howItWorksRaw" style="min-height:160px"><%= raffle.howItWorks.join('\n') %></textarea>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3 style="margin-top:0">Official Terms</h3>
+    <p class="form-hint" style="margin-top:-.6rem;margin-bottom:1rem">One term per line.</p>
+    <div class="form-group">
+      <textarea name="termsRaw" style="min-height:160px"><%= raffle.terms.join('\n') %></textarea>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-brass">Save Raffle Settings</button>
+</form>
+
+<%- include('partials/shell-close') %>

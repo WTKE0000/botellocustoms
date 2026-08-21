@@ -1,0 +1,74 @@
+<%- include('partials/shell-open', { pageTitle: 'Raffle Codes', active: 'raffle-codes', flash: flash }) %>
+
+<div class="admin-header"><h1>Raffle Codes</h1></div>
+
+<% if (newlyGenerated) { %>
+  <div class="admin-card" style="border-color:var(--brass)">
+    <h3 style="margin-top:0">Just generated — copy these now</h3>
+    <p class="form-hint" style="margin-bottom:1rem">Send one code to each buyer over Snapchat after they've paid. Once they enter it on the Raffle page, it locks in a random ticket number and can't be reused.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.6rem">
+      <% newlyGenerated.forEach(function(code) { %>
+        <code style="background:var(--steel-800);border:1px solid var(--brass);color:var(--brass-bright);padding:8px 14px;border-radius:4px;font-family:var(--font-mono);font-size:1rem;letter-spacing:.08em"><%= code %></code>
+      <% }); %>
+    </div>
+  </div>
+<% } %>
+
+<div class="admin-card">
+  <h3 style="margin-top:0">Generate Codes</h3>
+  <p class="form-hint" style="margin-top:-.4rem;margin-bottom:1rem">Each code is good for one ticket. When a buyer sends payment on Snapchat, generate a code here and send it back to them.</p>
+  <form action="/admin/raffle-codes/generate" method="POST" style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
+    <div class="form-group" style="margin-bottom:0;max-width:160px">
+      <label>How many?</label>
+      <input type="number" name="quantity" value="1" min="1" max="50">
+    </div>
+    <button type="submit" class="btn btn-brass">Generate</button>
+  </form>
+</div>
+
+<div class="admin-card">
+  <h3 style="margin-top:0">Add a Specific Code</h3>
+  <p class="form-hint" style="margin-top:-.4rem;margin-bottom:1rem">Optional — if you'd rather set the code yourself instead of a random one.</p>
+  <form action="/admin/raffle-codes/custom" method="POST" style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
+    <div class="form-group" style="margin-bottom:0">
+      <label>Code</label>
+      <input type="text" name="code" placeholder="e.g. CBC2026">
+    </div>
+    <button type="submit" class="btn btn-outline">Add Code</button>
+  </form>
+</div>
+
+<div class="admin-card">
+  <h3 style="margin-top:0">All Codes (<%= codes.length %>)</h3>
+  <table class="admin-table">
+    <thead><tr><th>Code</th><th>Status</th><th>Ticket #</th><th>Redeemed At</th><th></th></tr></thead>
+    <tbody>
+      <% codes.forEach(function(c) { %>
+        <tr>
+          <td><code style="font-family:var(--font-mono)"><%= c.code %></code></td>
+          <td>
+            <% if (c.status === 'unused') { %>
+              <span style="color:var(--brass-bright)">Unused</span>
+            <% } else { %>
+              <span style="color:var(--parchment-dim)">Redeemed</span>
+            <% } %>
+          </td>
+          <td><%= c.ticketNumber !== null ? '#' + c.ticketNumber : '—' %></td>
+          <td><%= c.redeemedAt ? new Date(c.redeemedAt).toLocaleString() : '—' %></td>
+          <td class="actions">
+            <% if (c.status === 'unused') { %>
+              <form action="/admin/raffle-codes/<%= c.id %>/delete" method="POST" style="display:inline" onsubmit="return confirm('Delete this unused code?')">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            <% } %>
+          </td>
+        </tr>
+      <% }); %>
+      <% if (codes.length === 0) { %>
+        <tr><td colspan="5" style="color:var(--parchment-dim)">No codes yet — generate some above.</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/shell-close') %>

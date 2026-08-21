@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/nav', { active: '' }) %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / My Account</div>
+    <h1>My Account</h1>
+    <p><%= user.email %></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:640px">
+    <span class="eyebrow">Raffle Entries</span>
+    <h2 style="margin-bottom:1.2rem">Your Ticket Numbers</h2>
+
+    <% if (tickets.length === 0) { %>
+      <p style="color:var(--ink-dim)">You haven't redeemed a raffle code yet. Once you pay on Snapchat and get your code, redeem it on the <a href="/raffle" style="color:var(--brass)">Raffle page</a>.</p>
+    <% } else { %>
+      <table class="prize-table">
+        <thead><tr><th>Ticket #</th><th>Redeemed</th></tr></thead>
+        <tbody>
+          <% tickets.forEach(function(t) { %>
+            <tr><td>#<%= t.ticketNumber %></td><td><%= new Date(t.redeemedAt).toLocaleString() %></td></tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+
+    <form action="/logout" method="POST" style="margin-top:2rem">
+      <button type="submit" class="btn btn-outline">Log Out</button>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/nav', { active: 'accessories' }) %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / Accessories</div>
+    <h1>Accessories</h1>
+    <p>Holsters, cases, optics, and the small stuff that finishes the setup.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid-4">
+      <% accessories.forEach(function(item) { %>
+        <div class="mini-card">
+          <%- include('partials/media', { image: item.image, icon: '🧰', label: item.name }) %>
+          <h3 class="card-title" style="font-size:1rem"><%= item.name %></h3>
+          <p class="card-desc" style="font-size:.82rem"><%= item.description %></p>
+          <p class="card-price"><%= item.price %></p>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+</body>
+</html>

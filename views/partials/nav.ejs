@@ -1,0 +1,30 @@
+<header class="site-header">
+  <div class="container nav-row">
+    <a href="/" class="brand">
+      <div class="makers-mark" style="width:44px;height:44px">
+        <svg viewBox="0 0 100 100" width="44" height="44">
+          <circle class="ring" cx="50" cy="50" r="46"/>
+          <circle class="ring-inner" cx="50" cy="50" r="38"/>
+          <text x="50" y="47" font-size="26" text-anchor="middle" font-weight="700">CB</text>
+          <text x="50" y="63" font-size="7.5" text-anchor="middle" letter-spacing="1.5">CUSTOMS</text>
+        </svg>
+      </div>
+      <span><%= settings.businessName %><small><%= settings.locationLine %></small></span>
+    </a>
+    <nav class="main-nav">
+      <a href="/" class="<%= active === 'home' ? 'active' : '' %>">Home</a>
+      <a href="/firearms" class="<%= active === 'firearms' ? 'active' : '' %>">Firearms</a>
+      <a href="/custom-work" class="<%= active === 'custom-work' ? 'active' : '' %>">Custom Work</a>
+      <a href="/accessories" class="<%= active === 'accessories' ? 'active' : '' %>">Accessories</a>
+      <a href="/raffle" class="<%= active === 'raffle' ? 'active' : '' %>">Raffle</a>
+      <a href="/about" class="<%= active === 'about' ? 'active' : '' %>">Our Story</a>
+      <% if (typeof currentUser !== 'undefined' && currentUser) { %>
+        <a href="/account" class="<%= active === 'account' ? 'active' : '' %>">My Account</a>
+      <% } else { %>
+        <a href="/login">Log In</a>
+      <% } %>
+      <a href="/raffle" class="nav-cta">Enter Raffle</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+</header>

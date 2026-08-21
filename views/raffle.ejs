@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/nav', { active: 'raffle' }) %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / Raffle</div>
+    <span class="eyebrow"><%= raffle.totalTickets %> Tickets · <%= raffle.durationDays %> Days · <%= raffle.prizes.length %> Winners</span>
+    <h1>Custom Hand-Engraved &amp; Plated Firearm Raffle</h1>
+    <p><%= raffle.totalTickets %> numbered entries at a fixed price. When the raffle closes, <%= raffle.prizes.length %> winners are drawn at random from every ticket sold — no skill or judgment involved, every ticket has an equal chance.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container grid-2">
+    <%- include('partials/media', { image: raffle.prizeImage, icon: '🏆', label: 'Raffle Prize Firearm — 1st Place' }) %>
+    <div>
+      <span class="eyebrow">Prizes</span>
+      <h2>What you could win.</h2>
+      <table class="prize-table">
+        <thead><tr><th>Place</th><th>Prize</th></tr></thead>
+        <tbody>
+          <% raffle.prizes.forEach(function(p) { %>
+            <tr><td><%= p.place %></td><td><%= p.description %></td></tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Ticket Structure</span>
+      <h2>The details.</h2>
+    </div>
+    <table class="prize-table">
+      <tbody>
+        <tr><td>Ticket price</td><td>$<%= raffle.ticketPrice %></td></tr>
+        <tr><td>Total tickets available</td><td><%= raffle.totalTickets %></td></tr>
+        <tr><td>Max entries per person</td><td><%= raffle.maxPerPerson %> tickets</td></tr>
+        <tr><td>Raffle duration</td><td><%= raffle.durationDays %> days from launch, or until sold out</td></tr>
+        <tr><td>Total possible revenue</td><td>$<%= (raffle.ticketPrice * raffle.totalTickets).toLocaleString() %> if fully sold</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">How It Works</span>
+      <h2>Step by step.</h2>
+    </div>
+    <ol class="rules-list">
+      <% raffle.howItWorks.forEach(function(step) { %>
+        <li><%= step %></li>
+      <% }); %>
+    </ol>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="ticket-selector" style="max-width:560px;margin:0 auto">
+      <span class="eyebrow">Step 1 — Pay for Tickets</span>
+      <h2 style="margin-bottom:.2em">Reserve your entry</h2>
+      <p style="color:var(--parchment-dim);font-size:.9rem">$<%= raffle.ticketPrice %> per ticket · limit <%= raffle.maxPerPerson %> per person</p>
+      <div class="stepper" data-price="<%= raffle.ticketPrice %>" data-max="<%= raffle.maxPerPerson %>" data-total-tickets="<%= raffle.totalTickets %>">
+        <button class="minus" aria-label="Remove a ticket">−</button>
+        <span class="count">1</span>
+        <button class="plus" aria-label="Add a ticket">+</button>
+        <span style="margin-left:auto" class="ticket-total">$<%= raffle.ticketPrice %></span>
+      </div>
+      <a href="https://www.snapchat.com/add/<%= settings.snapchatHandle %>" target="_blank" rel="noopener"
+         class="btn btn-brass btn-block raffle-pay-btn"
+         data-snapchat-url="https://www.snapchat.com/add/<%= settings.snapchatHandle %>">
+        Step 1 — Pay via Snapchat →
+      </a>
+      <p class="pay-redirect-note" style="display:none;margin-top:1rem;font-size:.82rem;color:var(--brass-bright)"></p>
+      <p style="margin-top:1.2rem;font-size:.8rem;color:var(--ink-dim)">Clicking "Pay via Snapchat" opens our Snapchat account (<strong>@<%= settings.snapchatHandle %></strong>). Send payment there and we'll message you back a one-time redemption code — that's step 2, below.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="ticket-selector" style="max-width:640px;margin:0 auto;text-align:center">
+      <span class="eyebrow">Step 2 — Redeem Your Code</span>
+      <h2 style="margin-bottom:.3em">Spin for your ticket number</h2>
+      <p style="color:var(--ink-dim);font-size:.9rem;max-width:46ch;margin:0 auto 1.6rem">Once we send you a code over Snapchat, enter it below. The wheel spins and locks in a random, still-available ticket number — that's your official entry.</p>
+
+      <div id="raffle-wheel-stage">
+        <div id="raffle-wheel-pointer">▼</div>
+        <div id="raffle-wheel-container" aria-hidden="true"></div>
+      </div>
+
+      <% if (typeof currentUser !== 'undefined' && currentUser) { %>
+        <form id="redeem-form" style="max-width:340px;margin:1.6rem auto 0;display:flex;gap:.6rem">
+          <input type="text" id="redeem-code-input" placeholder="Enter your code" autocomplete="off"
+            style="flex:1;background:var(--paper-card);border:1px solid var(--line-light);color:var(--ink);padding:12px 14px;border-radius:var(--radius);font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase">
+          <button type="submit" class="btn btn-brass" id="redeem-submit-btn">Spin</button>
+        </form>
+        <p id="redeem-message" style="margin-top:1rem;font-size:.9rem;min-height:1.4em"></p>
+      <% } else { %>
+        <div style="max-width:340px;margin:1.6rem auto 0">
+          <p style="color:var(--ink-dim);margin-bottom:1rem">You'll need an account to redeem a code — it keeps your ticket number tied to you.</p>
+          <a href="/login?redirect=%2Fraffle" class="btn btn-brass btn-block">Log In</a>
+          <a href="/signup?redirect=%2Fraffle" class="btn btn-outline btn-block" style="margin-top:.6rem">Create an Account</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Read Before Entering</span>
+      <h2>Official Terms</h2>
+    </div>
+    <div class="grid-2" style="align-items:start">
+      <ul class="rules-list">
+        <% raffle.terms.forEach(function(term) { %>
+          <li><%= term %></li>
+        <% }); %>
+      </ul>
+      <div class="compliance-box">
+        <strong>Before you enter:</strong> This raffle is run by a licensed Tennessee family firearms business. All firearm transfers, including raffle prizes, go through our FFL with a standard background check. Cash prizes are paid directly. Full official rules, eligibility requirements, and drawing details are published above and will be confirmed again at the time of the live drawing.
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/nav', { active: 'firearms' }) %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / Firearms</div>
+    <h1>Firearms</h1>
+    <p>Every listing below is available to reserve in-store. All sales, including plated and engraved pieces, transfer through our FFL with a standard background check — no exceptions.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="filter-bar">
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="glock">Glock</button>
+      <button class="filter-chip" data-filter="colt">Colt</button>
+      <button class="filter-chip" data-filter="sig">Sig Sauer</button>
+      <button class="filter-chip" data-filter="draco">Draco / AK Pistols</button>
+      <button class="filter-chip" data-filter="engraved">Hand-Engraved Editions</button>
+      <span class="stock-note result-count" style="margin-left:auto"><%= firearms.length %> items</span>
+    </div>
+
+    <div class="grid-3">
+      <% firearms.forEach(function(item) { %>
+        <div class="card" data-category="<%= item.brand %><%= item.engraved ? ' engraved' : '' %>">
+          <%- include('partials/media', { image: item.image, icon: item.engraved ? '✒️' : '🔫', label: item.name }) %>
+          <div class="card-body">
+            <span class="card-tag"><%= item.tag %></span>
+            <h3 class="card-title"><%= item.name %></h3>
+            <p class="card-desc"><%= item.description %></p>
+            <div class="card-foot">
+              <span class="card-price"><%= item.price %></span>
+              <a href="#reserve" class="btn btn-outline" style="padding:8px 16px;font-size:.7rem">Reserve</a>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <div class="compliance-box" id="reserve" style="margin-top:3rem">
+      <strong>How reservations work:</strong> Tapping "Reserve" holds the item and sends us your contact info by email. No firearm is shipped or handed over through the website — every sale is completed in person at our shop with a background check through our FFL, exactly like any other licensed dealer. We'll follow up to schedule your visit.
+    </div>
+
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+</body>
+</html>

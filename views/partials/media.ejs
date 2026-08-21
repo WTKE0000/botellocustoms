@@ -1,0 +1,8 @@
+<% if (typeof image !== 'undefined' && image) { %>
+  <div class="card-media" style="background-image:url('<%= image %>');background-size:cover;background-position:center"></div>
+<% } else { %>
+  <div class="card-media photo-slot">
+    <span class="icon"><%= typeof icon !== 'undefined' ? icon : '🖼' %></span>
+    <span>PHOTO PLACEHOLDER<br><%= typeof label !== 'undefined' ? label : '' %></span>
+  </div>
+<% } %>

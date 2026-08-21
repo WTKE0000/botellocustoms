@@ -1,0 +1,33 @@
+<%- include('partials/shell-open', { pageTitle: item ? 'Edit Piece' : 'Add Piece', active: 'custom-work', flash: flash }) %>
+
+<div class="admin-header"><h1><%= item ? 'Edit' : 'Add' %> Custom Work</h1></div>
+
+<form action="<%= item ? '/admin/custom-work/' + item.id : '/admin/custom-work' %>" method="POST" enctype="multipart/form-data">
+  <div class="admin-card">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" name="title" value="<%= item ? item.title : '' %>" required>
+      </div>
+      <div class="form-group">
+        <label>Tag (e.g. "Hand Engraving")</label>
+        <input type="text" name="tag" value="<%= item ? item.tag : '' %>" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea name="description" required><%= item ? item.description : '' %></textarea>
+    </div>
+    <div class="form-group">
+      <label>Photo</label>
+      <% if (item && item.image) { %>
+        <img src="<%= item.image %>" class="admin-thumb" style="width:100px;height:100px;margin-bottom:.6rem">
+      <% } %>
+      <input type="file" name="image" accept="image/*">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-brass">Save</button>
+  <a href="/admin/custom-work" class="btn btn-outline">Cancel</a>
+</form>
+
+<%- include('partials/shell-close') %>

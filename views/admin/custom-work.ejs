@@ -1,0 +1,38 @@
+<%- include('partials/shell-open', { pageTitle: 'Custom Work', active: 'custom-work', flash: flash }) %>
+
+<div class="admin-header">
+  <h1>Custom Work Portfolio</h1>
+  <a href="/admin/custom-work/new" class="btn btn-brass btn-sm">+ Add Piece</a>
+</div>
+
+<div class="admin-card">
+  <table class="admin-table">
+    <thead><tr><th>Photo</th><th>Title</th><th>Tag</th><th></th></tr></thead>
+    <tbody>
+      <% customWork.forEach(function(item) { %>
+        <tr>
+          <td>
+            <% if (item.image) { %>
+              <img src="<%= item.image %>" class="admin-thumb">
+            <% } else { %>
+              <div class="admin-thumb-empty">—</div>
+            <% } %>
+          </td>
+          <td><%= item.title %></td>
+          <td><%= item.tag %></td>
+          <td class="actions">
+            <a href="/admin/custom-work/<%= item.id %>/edit" class="btn btn-outline btn-sm">Edit</a>
+            <form action="/admin/custom-work/<%= item.id %>/delete" method="POST" style="display:inline" onsubmit="return confirm('Delete this piece?')">
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+      <% if (customWork.length === 0) { %>
+        <tr><td colspan="4" style="color:var(--parchment-dim)">No portfolio pieces yet.</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/shell-close') %>

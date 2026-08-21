@@ -1,0 +1,106 @@
+<%- include('partials/shell-open', { pageTitle: 'Site Settings', active: 'settings', flash: flash }) %>
+
+<div class="admin-header"><h1>Site Settings</h1></div>
+
+<form action="/admin/settings" method="POST" enctype="multipart/form-data">
+  <div class="admin-card">
+    <h3 style="margin-top:0">Business Info</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Business Name</label>
+        <input type="text" name="businessName" value="<%= settings.businessName %>" required>
+      </div>
+      <div class="form-group">
+        <label>Location Line</label>
+        <input type="text" name="locationLine" value="<%= settings.locationLine %>" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Address</label>
+        <input type="text" name="address" value="<%= settings.address %>" required>
+      </div>
+      <div class="form-group">
+        <label>Contact Email</label>
+        <input type="email" name="email" value="<%= settings.email %>" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Snapchat Handle (no @)</label>
+      <input type="text" name="snapchatHandle" value="<%= settings.snapchatHandle %>" required>
+      <p class="form-hint">Used on the Raffle page's "Pay via Snapchat" button.</p>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3 style="margin-top:0">Homepage Hero</h3>
+    <div class="form-group">
+      <label>Eyebrow Label</label>
+      <input type="text" name="heroEyebrow" value="<%= settings.heroEyebrow %>">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Headline (first line)</label>
+        <input type="text" name="heroHeadlineTop" value="<%= settings.heroHeadlineTop %>">
+      </div>
+      <div class="form-group">
+        <label>Headline (emphasized line)</label>
+        <input type="text" name="heroHeadlineEm" value="<%= settings.heroHeadlineEm %>">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Subheadline</label>
+      <textarea name="heroSubhead"><%= settings.heroSubhead %></textarea>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3 style="margin-top:0">Family Legacy Copy</h3>
+    <div class="form-group">
+      <label>Pull Quote</label>
+      <textarea name="legacyQuote"><%= settings.legacyQuote %></textarea>
+    </div>
+    <div class="form-group">
+      <label>Legacy Text (shown on homepage)</label>
+      <textarea name="legacyText"><%= settings.legacyText %></textarea>
+    </div>
+    <div class="form-group">
+      <label>Our Story — Intro Title</label>
+      <input type="text" name="storyIntroTitle" value="<%= settings.storyIntroTitle %>">
+    </div>
+    <div class="form-group">
+      <label>Our Story — Intro Text</label>
+      <textarea name="storyIntroText"><%= settings.storyIntroText %></textarea>
+    </div>
+    <div class="form-group">
+      <label>Our Story — Closing Text</label>
+      <textarea name="storyOutroText"><%= settings.storyOutroText %></textarea>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3 style="margin-top:0">Photos</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Family Photo</label>
+        <% if (settings.familyPhoto) { %>
+          <img src="<%= settings.familyPhoto %>" class="admin-thumb" style="width:100px;height:100px;margin-bottom:.6rem">
+        <% } %>
+        <input type="file" name="familyPhoto" accept="image/*">
+        <p class="form-hint">Used on the homepage and Our Story page.</p>
+      </div>
+      <div class="form-group">
+        <label>Workshop / Bench Photo</label>
+        <% if (settings.workshopPhoto) { %>
+          <img src="<%= settings.workshopPhoto %>" class="admin-thumb" style="width:100px;height:100px;margin-bottom:.6rem">
+        <% } %>
+        <input type="file" name="workshopPhoto" accept="image/*">
+        <p class="form-hint">Used on the Custom Work page.</p>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-brass">Save Settings</button>
+</form>
+
+<%- include('partials/shell-close') %>

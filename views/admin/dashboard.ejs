@@ -1,0 +1,26 @@
+<%- include('partials/shell-open', { pageTitle: 'Dashboard', active: 'dashboard', flash: flash }) %>
+
+<div class="admin-header">
+  <h1>Dashboard</h1>
+</div>
+
+<div class="grid-4" style="margin-bottom:2rem">
+  <div class="admin-card"><span class="card-tag">Firearms</span><h2 style="margin:.3em 0 0"><%= counts.firearms %></h2></div>
+  <div class="admin-card"><span class="card-tag">Custom Work</span><h2 style="margin:.3em 0 0"><%= counts.customWork %></h2></div>
+  <div class="admin-card"><span class="card-tag">Accessories</span><h2 style="margin:.3em 0 0"><%= counts.accessories %></h2></div>
+  <div class="admin-card"><span class="card-tag">Tickets Sold</span><h2 style="margin:.3em 0 0"><%= ticketsRedeemed %> / <%= raffle.totalTickets %></h2></div>
+</div>
+
+<div class="admin-card">
+  <h3 style="margin-top:0">Quick Links</h3>
+  <p class="form-hint">Jump straight to the section you want to update. Changes save immediately and go live on the site right away.</p>
+  <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem">
+    <a href="/admin/settings" class="btn btn-outline btn-sm">Edit Site Settings</a>
+    <a href="/admin/firearms/new" class="btn btn-outline btn-sm">Add a Firearm</a>
+    <a href="/admin/custom-work/new" class="btn btn-outline btn-sm">Add Custom Work</a>
+    <a href="/admin/accessories/new" class="btn btn-outline btn-sm">Add an Accessory</a>
+    <a href="/admin/raffle" class="btn btn-outline btn-sm">Edit Raffle</a>
+  </div>
+</div>
+
+<%- include('partials/shell-close') %>

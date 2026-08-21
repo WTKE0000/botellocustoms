@@ -1,0 +1,19 @@
+{
+  "name": "cesar-botello-customs",
+  "version": "1.0.0",
+  "description": "Cesar Botello Customs — public site + admin content dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "method-override": "^3.0.0",
+    "multer": "^2.0.0"
+  }
+}

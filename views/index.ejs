@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/nav', { active: 'home' }) %>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow"><%= settings.heroEyebrow %></span>
+      <h1><%= settings.heroHeadlineTop %><br><em><%= settings.heroHeadlineEm %></em></h1>
+      <p class="lead"><%= settings.heroSubhead %></p>
+      <div class="hero-actions">
+        <a href="/firearms" class="btn btn-brass">Browse Firearms</a>
+        <a href="/custom-work" class="btn btn-outline">See Custom Work</a>
+      </div>
+    </div>
+    <div class="hero-mark">
+      <svg viewBox="0 0 240 240" width="240" height="240">
+        <circle class="ring" cx="120" cy="120" r="112"/>
+        <circle class="ring-inner" cx="120" cy="120" r="96"/>
+        <text x="120" y="104" font-size="44" text-anchor="middle" font-weight="700" fill="var(--brass)" font-family="var(--font-display)">CBC</text>
+        <line x1="66" y1="120" x2="174" y2="120" stroke="var(--brass)" stroke-width="1" opacity="0.7"/>
+        <text x="120" y="146" font-size="11" letter-spacing="3" text-anchor="middle" fill="var(--brass)" font-family="var(--font-mono)">THREE GENERATIONS</text>
+        <text x="120" y="164" font-size="9" letter-spacing="2" text-anchor="middle" fill="var(--brass)" opacity="0.7" font-family="var(--font-mono)"><%= settings.locationLine.toUpperCase() %></text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Where to start</span>
+      <h2>Four rooms. One shop.</h2>
+      <p>We keep the front page simple — pick a door and go straight to what you're after.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="doorways">
+      <a href="/firearms" class="doorway">
+        <span class="num">01</span>
+        <h3>Firearms</h3>
+        <p>Glocks, Colts, Sig Sauer, Draco pistols &amp; more — organized by make.</p>
+        <span class="go">Shop Firearms →</span>
+      </a>
+      <a href="/custom-work" class="doorway">
+        <span class="num">02</span>
+        <h3>Custom Work</h3>
+        <p>Hand engraving, laser art &amp; commissioned pieces from our bench.</p>
+        <span class="go">View Portfolio →</span>
+      </a>
+      <a href="/accessories" class="doorway">
+        <span class="num">03</span>
+        <h3>Accessories</h3>
+        <p>Holsters, cases, optics, cleaning kits, and small parts.</p>
+        <span class="go">Shop Accessories →</span>
+      </a>
+      <a href="/raffle" class="doorway">
+        <span class="num">04</span>
+        <h3>Current Raffle</h3>
+        <p><%= raffle.totalTickets %> tickets. One hand-engraved &amp; plated firearm. Live now.</p>
+        <span class="go">Get Tickets →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section section-alt">
+  <div class="container grid-2">
+    <div>
+      <span class="eyebrow">Our Story</span>
+      <h2>Built by our grandfather.<br>Held by us.</h2>
+      <p class="legacy-quote">"<%= settings.legacyQuote %>"</p>
+      <p><%= settings.legacyText %></p>
+      <a href="/about" class="btn btn-outline">Read Our Full Story</a>
+    </div>
+    <%- include('partials/media', { image: settings.familyPhoto, icon: '🖼', label: 'Recommended: 1000×1200px, portrait orientation' }) %>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="raffle-banner">
+      <div>
+        <span class="eyebrow" style="margin-bottom:.4em">Live Raffle · <%= raffle.durationDays %> Days</span>
+        <h2 style="margin-bottom:.2em">Win a hand-engraved &amp; plated firearm.</h2>
+        <p style="margin:0;color:var(--parchment-dim)">$<%= raffle.ticketPrice %> a ticket. Only <%= raffle.totalTickets %> available. Two cash prizes too.</p>
+      </div>
+      <a href="/raffle" class="btn btn-brass">Enter the Raffle</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<%- include('partials/shell-open', { pageTitle: item ? 'Edit Firearm' : 'Add Firearm', active: 'firearms', flash: flash }) %>
+
+<div class="admin-header"><h1><%= item ? 'Edit' : 'Add' %> Firearm</h1></div>
+
+<form action="<%= item ? '/admin/firearms/' + item.id : '/admin/firearms' %>" method="POST" enctype="multipart/form-data">
+  <div class="admin-card">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" value="<%= item ? item.name : '' %>" required>
+      </div>
+      <div class="form-group">
+        <label>Price (e.g. $549)</label>
+        <input type="text" name="price" value="<%= item ? item.price : '' %>" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Category</label>
+        <select name="brand" required>
+          <option value="glock" <%= item && item.brand === 'glock' ? 'selected' : '' %>>Glock</option>
+          <option value="colt" <%= item && item.brand === 'colt' ? 'selected' : '' %>>Colt</option>
+          <option value="sig" <%= item && item.brand === 'sig' ? 'selected' : '' %>>Sig Sauer</option>
+          <option value="draco" <%= item && item.brand === 'draco' ? 'selected' : '' %>>Draco / AK Pistol</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Display Tag (e.g. "Glock · Custom")</label>
+        <input type="text" name="tag" value="<%= item ? item.tag : '' %>" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea name="description" required><%= item ? item.description : '' %></textarea>
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" id="engraved" name="engraved" value="1" <%= item && item.engraved ? 'checked' : '' %> style="width:auto">
+      <label for="engraved" style="margin:0;text-transform:none;font-family:var(--font-body);color:var(--parchment)">This is a hand-engraved / custom edition</label>
+    </div>
+    <div class="form-group">
+      <label>Photo</label>
+      <% if (item && item.image) { %>
+        <img src="<%= item.image %>" class="admin-thumb" style="width:100px;height:100px;margin-bottom:.6rem">
+      <% } %>
+      <input type="file" name="image" accept="image/*">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-brass">Save Firearm</button>
+  <a href="/admin/firearms" class="btn btn-outline">Cancel</a>
+</form>
+
+<%- include('partials/shell-close') %>
